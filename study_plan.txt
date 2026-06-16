@@ -1,0 +1,17 @@
+2
+Maths
+3
+Algebra
+3
+0
+Quadratic
+4
+0
+English
+2
+0
+Science
+1
+chemistry
+3
+0
