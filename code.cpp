@@ -14,7 +14,7 @@ struct Subject{
     vector <chapter> chapters;
 };
 
-void datadisplay(vector<Subject> &subjects){
+void datadisplay(const vector<Subject> &subjects){
     cout<<"\n==== STUDY PLAN SUMMARY ====\n"<<endl;
     for(int i=0;i<subjects.size();i++){
         cout<<i<<"."<<"Subject: "<<subjects[i].name<<endl;
@@ -118,6 +118,34 @@ void NewStudyPlan(vector<Subject> &subjects){
         subjects.push_back(subject1);    
     }}
 
+void deletechapter(vector <Subject> &subjects){
+    datadisplay(subjects);
+    int subjectIndex, chapterIndex;
+    cout<<"Enter the Subject index of the chapter yopu want to delete: ";
+    cin>>subjectIndex;
+    cout<<"Enter the Chapter index of the chapter you want to delete: ";
+    cin>>chapterIndex;
+    if(subjectIndex >= 0 && subjectIndex < subjects.size() && chapterIndex >= 0 && chapterIndex < subjects[subjectIndex].chapters.size()) {
+        subjects[subjectIndex].chapters.erase(subjects[subjectIndex].chapters.begin() + chapterIndex);
+        cout << "Chapter deleted successfully!" << endl;
+    } else {
+        cout << "Invalid indices!" << endl;
+    }
+}
+
+void deleteSubject(vector <Subject> &subjects){
+    datadisplay(subjects);
+    int subjectIndex;
+    cout<<"Enter the Subject index of the subject you want to delete: ";
+    cin>>subjectIndex;
+    if(subjectIndex >= 0 && subjectIndex < subjects.size()) {
+        subjects.erase(subjects.begin() + subjectIndex);
+        cout << "Subject deleted successfully!" << endl;
+    } else {
+        cout << "Invalid index!" << endl;
+    }
+}
+
 
 int main(){
     cout<<"welcome to your personalized study plan generator!"<<endl;
@@ -150,6 +178,7 @@ int main(){
         cout<<"4. Load Study Plan"<<endl;
         cout<<"5. Exit"<<endl;
         cout<<"6. Show Progress"<<endl;
+        cout<<"7. Delete a Chapter"<<endl;
         cout<<"Enter your choice: ";
         cin>>choice;
         cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear the input
@@ -170,6 +199,7 @@ int main(){
                 }else{
                     cout<<"Invalid indices!"<<endl;
                 }
+                saveData(subjects);
                 break;
             case 3:
                 saveData(subjects);
@@ -183,7 +213,10 @@ int main(){
             case 6:
                 showProgress(subjects);
                 break;
-        
+            case 7:
+                deletechapter(subjects);
+                saveData(subjects);
+                break;
             default:
                 cout<<"Invalid choice! Please try again."<<endl;
         }
