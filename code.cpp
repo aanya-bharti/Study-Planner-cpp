@@ -146,6 +146,26 @@ void deleteSubject(vector <Subject> &subjects){
     }
 }
 
+void addChapter(vector<Subject> &subjects){
+        datadisplay(subjects);
+        int subjectIndex;
+        cout<<"Enter the Subject index to which you want to add a chapter: ";
+        cin>>subjectIndex;
+        if(subjectIndex >= 0 && subjectIndex < subjects.size()) {
+            chapter newChapter;
+            cout<<"Enter the name of the new chapter: ";
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear the input buffer
+            getline(cin, newChapter.name);
+            cout<<"On a scale of 1-5, how difficult is "<<newChapter.name<<"?"<<endl;
+            cin>>newChapter.difficulty;
+            newChapter.completed=false;
+            subjects[subjectIndex].chapters.push_back(newChapter);
+            cout << "Chapter added successfully!" << endl;
+        } else {
+            cout << "Invalid subject index!" << endl;
+        }
+    }
+
 
 int main(){
     cout<<"welcome to your personalized study plan generator!"<<endl;
@@ -168,7 +188,7 @@ int main(){
     else if(option==2){
         loadData(subjects);
         cout<<"Study plan loaded successfully!"<<endl;}
-    
+
     while(true){
         int choice;
         cout<<"\n==== MENU ====\n"<<endl;
@@ -179,6 +199,8 @@ int main(){
         cout<<"5. Exit"<<endl;
         cout<<"6. Show Progress"<<endl;
         cout<<"7. Delete a Chapter"<<endl;
+        cout<<"8. Delete a Subject"<<endl;
+        cout<<"9. Add a Chapter"<<endl;
         cout<<"Enter your choice: ";
         cin>>choice;
         cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear the input
@@ -215,6 +237,14 @@ int main(){
                 break;
             case 7:
                 deletechapter(subjects);
+                saveData(subjects);
+                break;
+            case 8:
+                deleteSubject(subjects);
+                saveData(subjects);
+                break;
+            case 9:
+                addChapter(subjects);
                 saveData(subjects);
                 break;
             default:
